@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Personal portfolio of a software engineering student.">
+  <meta name="theme-color" content="#f5f6f8" id="theme-color">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Portfolio">
+  <meta property="og:description" content="Personal portfolio of a software engineering student.">
+  <meta property="og:image" content="" id="og-image">
+  <title>Portfolio | Software Engineering Student</title>
+
+  <!-- Apply the saved or system theme before styles paint to prevent a flash. -->
+  <script>
+    (function () {
+      var theme = "";
+      try {
+        theme = localStorage.getItem("portfolio-theme") || "";
+      } catch (error) {
+        theme = "";
+      }
+      if (theme !== "light" && theme !== "dark") {
+        theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      document.documentElement.dataset.theme = theme;
+    }());
+  </script>
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='11' fill='%233b4cf0'/%3E%3Ctext x='20' y='28' font-family='Arial,sans-serif' font-size='24' font-weight='700' text-anchor='middle' fill='%23fff'%3EP%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=IBM+Plex+Mono&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
+  <header class="site-header" id="site-header">
+    <nav class="navbar container" aria-label="Main navigation">
+      <a href="#home" class="logo" id="logo">Your Name</a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#experience" data-nav-group="experience">Experience</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme" title="Switch theme">
+          <span class="theme-icon" aria-hidden="true">◐</span>
+        </button>
+        <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+  <button class="menu-scrim" id="menu-scrim" type="button" aria-label="Close navigation menu" tabindex="-1"></button>
+
+  <main id="main-content">
+    <section class="hero container" id="home" aria-labelledby="hero-heading">
+      <div class="hero-copy">
+        <div class="hero-profile">
+          <div class="avatar">
+            <span class="avatar-initials" id="avatar-initials">SA</span>
+            <img id="profile-img" alt="" width="72" height="72" loading="eager" decoding="async" hidden>
+          </div>
+          <p class="hero-role" id="hero-role">Software Engineering Student</p>
+        </div>
+        <h1 id="hero-heading">Hi, I'm <span id="hero-name">Your Name</span></h1>
+        <p class="hero-intro" id="hero-intro">Short introduction goes here.</p>
+        <div class="hero-buttons">
+          <a href="#projects" class="button button-primary">View projects <span aria-hidden="true">↗</span></a>
+          <a href="#contact" class="button button-outline">Get in touch</a>
+          <a href="cv.pdf" class="button button-quiet" id="cv-link" hidden download>Download CV <span aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <aside class="code-window" aria-label="A code preview of my profile">
+          <div class="code-titlebar">
+            <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>profile.js</span>
+          </div>
+          <pre class="code-scroll"><code id="profile-code"></code></pre>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section container" id="about" aria-labelledby="about-heading">
+      <h2 class="section-title" id="about-heading">About</h2>
+      <div class="section-content about-content">
+        <div id="about-text"></div>
+        <div class="interests-block">
+          <h3>Interests and goals</h3>
+          <ul id="interest-list"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container" id="skills" aria-labelledby="skills-heading">
+      <h2 class="section-title" id="skills-heading">Skills</h2>
+      <div class="section-content">
+        <div class="skills-grid" id="skills-grid"></div>
+      </div>
+    </section>
+
+    <section class="section container" id="projects" aria-labelledby="projects-heading">
+      <h2 class="section-title" id="projects-heading">Projects</h2>
+      <div class="section-content">
+        <div class="projects-list" id="projects-grid"></div>
+      </div>
+    </section>
+
+    <section class="section container" id="experience" data-nav-group="experience" aria-labelledby="roles-heading">
+      <h2 class="section-title" id="roles-heading">Roles &amp; responsibilities</h2>
+      <div class="section-content">
+        <div class="timeline" id="roles-list"></div>
+      </div>
+    </section>
+
+    <section class="section container" id="work-experience" data-nav-group="experience" aria-labelledby="work-experience-heading">
+      <h2 class="section-title" id="work-experience-heading">Work experience</h2>
+      <div class="section-content">
+        <div class="timeline" id="work-experience-list"></div>
+        <details class="editor-panel">
+          <summary>Add work experience</summary>
+          <p class="editor-note">Saved only in this browser; it won't update the live site or other devices.</p>
+          <form class="record-form" id="experience-form">
+            <div class="form-group">
+              <label for="experience-title">Job title</label>
+              <input type="text" id="experience-title" name="title" maxlength="120" required>
+            </div>
+            <div class="form-group">
+              <label for="experience-place">Company or organization</label>
+              <input type="text" id="experience-place" name="place" maxlength="120" required>
+            </div>
+            <div class="form-group">
+              <label for="experience-period">Time period</label>
+              <input type="text" id="experience-period" name="period" maxlength="80" placeholder="e.g. Jan 2024 – Aug 2024" required>
+            </div>
+            <div class="form-group">
+              <label for="experience-details">What did you work on?</label>
+              <textarea id="experience-details" name="details" rows="3" maxlength="1000"></textarea>
+            </div>
+            <button type="submit" class="button button-primary">Save experience</button>
+          </form>
+        </details>
+        <p class="editor-status" id="experience-status" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="section container" id="education" aria-labelledby="education-heading">
+      <h2 class="section-title" id="education-heading">Education</h2>
+      <div class="section-content">
+        <div class="timeline" id="education-list"></div>
+      </div>
+    </section>
+
+    <section class="section container" id="certifications" data-nav-group="experience" aria-labelledby="certifications-heading">
+      <h2 class="section-title" id="certifications-heading">Certifications</h2>
+      <div class="section-content">
+        <div class="timeline" id="certifications-list"></div>
+        <details class="editor-panel">
+          <summary>Add a certificate</summary>
+          <p class="editor-note">Saved only in this browser; it won't update the live site or other devices.</p>
+          <form class="record-form" id="certificate-form">
+            <div class="form-group">
+              <label for="certificate-title">Certificate name</label>
+              <input type="text" id="certificate-title" name="title" maxlength="160" required>
+            </div>
+            <div class="form-group">
+              <label for="certificate-place">Issued by</label>
+              <input type="text" id="certificate-place" name="place" maxlength="160" required>
+            </div>
+            <div class="form-group">
+              <label for="certificate-period">Date earned</label>
+              <input type="text" id="certificate-period" name="period" maxlength="80" placeholder="e.g. June 2025">
+            </div>
+            <div class="form-group">
+              <label for="certificate-details">Credential ID or note (optional)</label>
+              <textarea id="certificate-details" name="details" rows="2" maxlength="500"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="certificate-file">Certificate file (PDF, JPG, or PNG)</label>
+              <input type="file" id="certificate-file" name="certificateFile" accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png">
+            </div>
+            <button type="submit" class="button button-primary">Save certificate</button>
+          </form>
+        </details>
+        <p class="editor-status" id="certificate-status" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="section container" id="achievements" data-nav-group="experience" aria-labelledby="achievements-heading">
+      <h2 class="section-title" id="achievements-heading">Achievements</h2>
+      <div class="section-content">
+        <div class="timeline" id="achievements-list"></div>
+        <details class="editor-panel">
+          <summary>Add an achievement</summary>
+          <p class="editor-note">Saved only in this browser; it won't update the live site or other devices.</p>
+          <form class="record-form" id="achievement-form">
+            <div class="form-group">
+              <label for="achievement-title">Achievement</label>
+              <input type="text" id="achievement-title" name="title" maxlength="160" required>
+            </div>
+            <div class="form-group">
+              <label for="achievement-period">Date or year (optional)</label>
+              <input type="text" id="achievement-period" name="period" maxlength="80" placeholder="e.g. 2025">
+            </div>
+            <div class="form-group">
+              <label for="achievement-place">Event or organization (optional)</label>
+              <input type="text" id="achievement-place" name="place" maxlength="160">
+            </div>
+            <div class="form-group">
+              <label for="achievement-details">A short description (optional)</label>
+              <textarea id="achievement-details" name="details" rows="3" maxlength="800"></textarea>
+            </div>
+            <button type="submit" class="button button-primary">Save achievement</button>
+          </form>
+        </details>
+        <p class="editor-status" id="achievement-status" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="section container" id="highlights" data-nav-group="experience" aria-labelledby="highlights-heading">
+      <h2 class="section-title" id="highlights-heading">Personal highlights</h2>
+      <div class="section-content">
+        <div class="highlight-list" id="highlights-list"></div>
+      </div>
+    </section>
+
+    <section class="section container" id="contact" aria-labelledby="contact-heading">
+      <h2 class="section-title" id="contact-heading">Contact</h2>
+      <div class="section-content">
+        <div class="contact-grid">
+          <div class="contact-info">
+            <h3>Let's connect</h3>
+            <p id="contact-text">Contact message goes here.</p>
+            <ul class="contact-links" id="contact-links"></ul>
+          </div>
+
+          <form class="contact-form" id="contact-form" novalidate>
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="Your name" autocomplete="name" aria-describedby="name-error" required>
+              <small class="error" id="name-error"></small>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" aria-describedby="email-error" required>
+              <small class="error" id="email-error"></small>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="5" placeholder="Write your message..." aria-describedby="message-error" required></textarea>
+              <small class="error" id="message-error"></small>
+            </div>
+            <button type="submit" class="button button-primary">Send message <span aria-hidden="true">↗</span></button>
+            <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="footer-monogram" aria-hidden="true">SA</span>
+        <p>&copy; <span id="footer-year"></span> <span id="footer-name">Your Name</span>. All rights reserved.</p>
+      </div>
+      <ul class="footer-links" id="footer-links"></ul>
+    </div>
+  </footer>
+  <button class="back-to-top" id="back-to-top" type="button" aria-label="Back to top">↑</button>
+  <noscript><p class="noscript-message">Enable JavaScript to see the portfolio content.</p></noscript>
+  <script src="script.js" defer></script>
+</body>
+</html>
